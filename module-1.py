@@ -46,12 +46,22 @@ def naiti_kontakt():
     else:
         print("❌ Контакт не найден.")
 
+def udolit_kontakt():
+    query = input("Введите имя или телефон для удаления: ").strip()
+    contacts = zagruzit_kontakt()
+    new_contacts = [c for c in contacts if query not in (c['name'], c['phone'])]
+    if len(new_contacts) == len(contacts):
+        print("❌ Контакт не найден.")
+    else:
+        sochranit_kontakt(new_contacts)
+        print("✅ Контакт удалён!")
+
 def osnovanie():
     while True:
         print("\nВыберите действие:")
         print("1. Добавить контакт")
         print("2. Найти контакт")
-
+        print("3. Удалить контакт")
         
         choice = input("Введите номер действия: ").strip()
         
@@ -59,6 +69,8 @@ def osnovanie():
             dobovlenie_kontakta()
         elif choice == "2":
             naiti_kontakt()
+        elif choice == "3":
+            udolit_kontakt()
             break
         else:
             print("❌ Неверный выбор. Попробуйте снова.")
