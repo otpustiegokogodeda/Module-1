@@ -56,12 +56,32 @@ def udolit_kontakt():
         sochranit_kontakt(new_contacts)
         print("✅ Контакт удалён!")
 
+def obnovit_kontakt():
+    query = input("Введите имя или телефон для обновления: ").strip()
+    contacts = zagruzit_kontakt()
+    for contact in contacts:
+        if query in (contact['name'], contact['phone']):
+            name = input("Введите новое имя: ").strip()
+            phone = input("Введите новый телефон (12 цифр): ").strip()
+            email = input("Введите новый email: ").strip()
+            
+            if not name or not choroshi_li_telefon(phone) or not choroshi_li_email(email):
+                print("❌ Неверные данные. Попробуйте снова.")
+                return
+            
+            contact.update({"name": name, "phone": phone, "email": email})
+            sochranit_kontakt(contacts)
+            print("✅ Контакт обновлён!")
+            return
+    print("❌ Контакт не найден.")
+
 def osnovanie():
     while True:
         print("\nВыберите действие:")
         print("1. Добавить контакт")
         print("2. Найти контакт")
         print("3. Удалить контакт")
+        print("4. Обновить контакт")
         
         choice = input("Введите номер действия: ").strip()
         
@@ -71,9 +91,9 @@ def osnovanie():
             naiti_kontakt()
         elif choice == "3":
             udolit_kontakt()
+        elif choice == "4":
+            obnovit_kontakt()
             break
         else:
             print("❌ Неверный выбор. Попробуйте снова.")
-
-if __name__ == "__main__":
-    osnovanie()
+osnovanie()
