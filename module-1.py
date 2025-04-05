@@ -75,6 +75,14 @@ def obnovit_kontakt():
             return
     print("❌ Контакт не найден.")
 
+def posmotret_kontakty():
+    contacts = sorted(zagruzit_kontakt(), key=lambda c: c['name'])
+    if contacts:
+        for contact in contacts:
+            print(contact)
+    else:
+        print("❌ Список контактов пуст.")
+
 def osnovanie():
     while True:
         print("\nВыберите действие:")
@@ -82,6 +90,7 @@ def osnovanie():
         print("2. Найти контакт")
         print("3. Удалить контакт")
         print("4. Обновить контакт")
+        print("5. Просмотреть контакты")
         
         choice = input("Введите номер действия: ").strip()
         
@@ -93,6 +102,8 @@ def osnovanie():
             udolit_kontakt()
         elif choice == "4":
             obnovit_kontakt()
+        elif choice == "5":
+            posmotret_kontakty()
             break
         else:
             print("❌ Неверный выбор. Попробуйте снова.")
